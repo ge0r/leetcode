@@ -1,17 +1,32 @@
 package leetcode
 
-import "fmt"
+/*
+ * @lc app=leetcode id=21 lang=golang
+ *
+ * [21] Merge Two Sorted Lists
+ */
 
+// @lc code=start
 type ListNode struct {
 	Val  int
 	Next *ListNode
 }
 
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
-	currentList := list1
-
-	if currentList.Next != nil {
-		fmt.Println(currentList.Val)
+	if list1 == nil {
+		return list2
 	}
-	return list1
+	if list2 == nil {
+		return list1
+	}
+
+	if list1.Val <= list2.Val {
+		list1.Next = mergeTwoLists(list1.Next, list2)
+		return list1
+	}
+
+	list2.Next = mergeTwoLists(list1, list2.Next)
+	return list2
 }
+
+// @lc code=end
